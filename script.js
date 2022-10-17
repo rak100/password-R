@@ -21,15 +21,20 @@ function generatePassword() {
 
   var passwordLength = parseInt(userInput);
 
+  //Lets the user exit the program if cancelled
+  if (userInput === null) {
+    return;
+  }
   if (isNaN(passwordLength)) {
     window.alert("That's not a valid number!");
-    return;
+    // return;
+
     // if the userinput is not a valid number the function will stop
   }
   if (passwordLength < 8 || passwordLength > 128) {
     window.alert("Password length should be between 8 & 128 characters!");
-    return;
-  }
+    // return;
+  } 
 
   var wantNumber = window.confirm(
     "Do you want to include numbers in your password?"
@@ -48,43 +53,40 @@ function generatePassword() {
   var numberList = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
   // // array for uppercase letters
-  // var alpha = Array.from(Array(26)).map((e, i) => i + 65);
-  // var upperCased = alpha.map((x) => String.fromCharCode(x));
-  var upperCaseList = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "W",
-    "X",
-    "Y",
-    "Z",
-  ];
+  var alpha = Array.from(Array(26)).map((e, i) => i + 65);
+  var upperCaseList = alpha.map((x) => String.fromCharCode(x));
+  // var upperCaseList = [
+  //   "A",
+  //   "B",
+  //   "C",
+  //   "D",
+  //   "E",
+  //   "F",
+  //   "G",
+  //   "H",
+  //   "I",
+  //   "J",
+  //   "K",
+  //   "L",
+  //   "M",
+  //   "N",
+  //   "O",
+  //   "P",
+  //   "Q",
+  //   "R",
+  //   "S",
+  //   "T",
+  //   "U",
+  //   "W",
+  //   "X",
+  //   "Y",
+  //   "Z",
+  // ];
   //   array for lowercase leters
-  var lowerCaseList = [];
+  // var lowerCaseList = [];
 
   // converted upperCased array from uppercase to lowercas letters
-  // var lowerCased = upperCased.map((name) => name.toLowerCase()); way 2
-  for (var i = 0; i < upperCaseList.length; i++) {
-    lowerCaseList[i] = upperCaseList[i].toLowerCase;
-  }
+  var lowerCaseList = upperCaseList.map((name) => name.toLowerCase());
 
   // symbols array
   var symbolList = ["!", "@", "#", "$", "%", "&", "*"];
@@ -104,8 +106,9 @@ function generatePassword() {
   if (wantSymbol === true) {
     selectionArr.push(symbolList);
   }
-  if (selectionArr === 0) {
-    selectionArr.push(upperCaseList);
+  if (!selectionArr) {
+    window.alert("User has to select at least one item");
+    // selectionArr.push(upperCaseList);
   }
   var generatedPassword = "";
 
