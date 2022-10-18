@@ -36,18 +36,7 @@ function generatePassword() {
     // return;
   } 
 
-  var wantNumber = window.confirm(
-    "Do you want to include numbers in your password?"
-  );
-  var wantUpperCase = window.confirm(
-    "Do you want to include upper case characters in your password?"
-  );
-  var wantLowerCase = window.confirm(
-    "Do you want to include lower case characters in your password?"
-  );
-  var wantSymbol = window.confirm(
-    "Do you want to include symbols in your password?"
-  );
+  
 
   //   array for numbers
   var numberList = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -94,27 +83,54 @@ function generatePassword() {
   // if user selects any category THEN push that category into empty array (in this case selectionArr)
   var selectionArr = [];
 
-  if (wantNumber === true) {
-    selectionArr.push(numberList);
+  var hasConfirmed = false;
+  while (!hasConfirmed) {
+    var wantNumber = window.confirm(
+      "Do you want to include numbers in your password?"
+    );
+    var wantUpperCase = window.confirm(
+      "Do you want to include upper case characters in your password?"
+    );
+    var wantLowerCase = window.confirm(
+      "Do you want to include lower case characters in your password?"
+    );
+    var wantSymbol = window.confirm(
+      "Do you want to include symbols in your password?"
+    );
+    if (wantNumber === true) {
+      selectionArr.push(numberList);
+      hasConfirmed = true;
+    }
+
+    if (wantUpperCase === true) {
+      selectionArr.push(upperCaseList);
+      hasConfirmed = true;
+    }
+    if (wantLowerCase === true) {
+      selectionArr.push(lowerCaseList);
+      hasConfirmed = true;
+    }
+    if (wantSymbol === true) {
+      selectionArr.push(symbolList);
+      hasConfirmed = true;
+    }
+    if (
+      wantUpperCase === false &&
+      wantLowerCase === false &&
+      wantSymbol === false &&
+      wantNumber === false
+    ) {
+      window.alert("User has to select at least one item");
+      
+      // selectionArr.push(upperCaseList);
+    }
   }
-  if (wantUpperCase === true) {
-    selectionArr.push(upperCaseList);
-  }
-  if (wantLowerCase === true) {
-    selectionArr.push(lowerCaseList);
-  }
-  if (wantSymbol === true) {
-    selectionArr.push(symbolList);
-  }
-  if (!selectionArr) {
-    window.alert("User has to select at least one item");
-    // selectionArr.push(upperCaseList);
-  }
+  
   var generatedPassword = "";
 
   for (var i = 0; i < passwordLength; i++) {
     var randomList = getRandomItem(selectionArr);
-    var randomChar = getRandomItem(randomList);
+    var randomChar = getRandomItem(randomList); // passing undefined as randomList here
     generatedPassword += randomChar;
   }
 
